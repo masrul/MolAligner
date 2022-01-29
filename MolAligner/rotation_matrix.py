@@ -1,6 +1,5 @@
 import numpy as np
-
-# from decorators import to_numpy
+from decorators import to_numpy
 
 
 def rotation_around_xaxis(angle):
@@ -15,7 +14,7 @@ def rotation_around_zaxis(angle):
     return rotation_around_vector([0, 0, 1], angle)
 
 
-# @to_numpy
+@to_numpy
 def rotation_around_vector(vec, angle):
     vec = vec / np.linalg.norm(vec)
     angle = np.deg2rad(angle)
