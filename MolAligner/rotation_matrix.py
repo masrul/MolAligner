@@ -55,8 +55,11 @@ def rotation_around_vector(vec, angle):
     return rot_mat
 
 
-# @to_numpy
+@to_numpy
 def align_two_vectors(u, v):
+    """
+    see https://math.stackexchange.com/a/476311
+    """
 
     u = u / np.linalg.norm(u)
     v = v / np.linalg.norm(v)
