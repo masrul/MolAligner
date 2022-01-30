@@ -1,5 +1,5 @@
 import numpy as np
-from decorators import to_numpy
+from .decorators import to_numpy
 
 
 def rotation_around_xaxis(angle):
@@ -87,3 +87,23 @@ def align_two_vectors(u, v):
     rot_mat = identity_mat + vx + np.matmul(vx, vx) * factor
 
     return rot_mat
+
+
+def kabsch_rotate(P, Q):
+    """
+    https://en.wikipedia.org/wiki/Kabsch_algorithm
+    """
+
+    assert P.shape == Q.shape
+
+    H = np.matmul(P, Q.T)
+    V, S, W = np.linalg.svd(H)
+    d = np.linalg.det(V) * np.linalg.det(W)
+
+    if d < 0.0:
+        S[-1] = -S[-1]
+        V[:, -1] = -V[:, -1]
+
+    R = np.matmul(V, W).T
+
+    return R

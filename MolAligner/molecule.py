@@ -26,6 +26,12 @@ class Molecule:
 
         return new_obj
 
+    def alias_xyz(self):
+        # aliasing x,y,z (does not allocate new memory)
+        self.x = self.coords[0]
+        self.y = self.coords[1]
+        self.z = self.coords[2]
+
     def __add__(self, other):
         self.merge(other)
         return self

@@ -1,6 +1,7 @@
 from .molecule import Molecule
 import numpy as np
 from copy import deepcopy
+from .rotation_matrix import kabsch_rotate
 
 
 class Aligner(Molecule):
@@ -71,6 +72,23 @@ class Aligner(Molecule):
         vec1 = self.get_vector_between([j, i])
         vec2 = self.get_vector_between([j, k])
         return np.cross(vec1, vec2)
+
+    def kabsch_fit(self, other):
+        P = self.coords
+        Q = other.coords
+
+        P_com = self.com.reshape((3, 1))
+        Q_com = other.com.reshape((3, 1))
+
+        # move com to origin
+        P -= P_com
+        Q -= Q_com
+
+        R = kabsch_rotate(P, Q)
+        P = np.matmul(R, P) + Q_com.reshape((3, 1))
+
+        self.coords = P
+        self.alias_xyz()
 
     @property
     def com(self):
