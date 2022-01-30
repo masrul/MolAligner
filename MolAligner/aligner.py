@@ -84,9 +84,11 @@ class Aligner(Molecule):
         P -= P_com
         Q -= Q_com
 
+        # Rotate and translate to Q
         R = kabsch_rotate(P, Q)
         P = np.matmul(R, P) + Q_com.reshape((3, 1))
 
+        # Alias
         self.coords = P
         self.alias_xyz()
 
