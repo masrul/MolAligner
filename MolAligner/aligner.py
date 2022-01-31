@@ -95,3 +95,32 @@ class Aligner(Molecule):
     @property
     def com(self):
         return self.get_center()
+
+    def get_principal_axis(self):
+        center = self.com
+        self.move_to([0, 0, 0])
+
+        Ixx = 0.0
+        Iyy = 0.0
+        Izz = 0.0
+        Ixy = 0.0
+        Ixz = 0.0
+        Iyz = 0.0
+
+        for i in range(self.nAtoms):
+            Ixx += self.y[i] * self.y[i] + self.z[i] * self.z[i]
+            Iyy += self.x[i] * self.x[i] + self.z[i] * self.z[i]
+            Izz += self.x[i] * self.x[i] + self.y[i] * self.y[i]
+
+            Ixy += -(self.x[i] * self.y[i])
+            Ixz += -(self.x[i] * self.z[i])
+            Iyz += -(self.y[i] * self.z[i])
+        self.move_to(center)
+
+        inertia = np.array([[Ixx, Ixy, Ixz], [Ixy, Iyy, Iyz], [Ixz, Iyz, Izz]])
+
+        eigval, eigvec = np.linalg.eig(inertia)
+
+        paxis = eigvec[np.argmax(eigval)]
+
+        return paxis
