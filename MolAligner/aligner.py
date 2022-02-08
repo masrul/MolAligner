@@ -32,11 +32,7 @@ class Aligner(Molecule):
     def rotate(self, rotation_mat):
 
         self.coords = np.matmul(rotation_mat, self.coords)
-
-        # aliasing x,y,z (does not allocate new memory)
-        self.x = self.coords[0]
-        self.y = self.coords[1]
-        self.z = self.coords[2]
+        self.alias_xyz()
 
     def get_position(self, atom_id):
         return deepcopy(self.coords[:, atom_id - 1])
@@ -124,3 +120,34 @@ class Aligner(Molecule):
         paxis = eigvec[np.argmax(eigval)]
 
         return paxis
+
+    def pbc_wrap(self, box, lpbc=(True, True, True), origin="lower_left"):
+        lx, ly, lz = box
+
+        if origin == "center":
+            xlow, ylow, zlow = (-0.5 * lx, -0.5 * ly, -0.5 * lz)
+            xhigh, yhigh, zhigh = (0.5 * lx, 0.5 * ly, 0.5 * lz)
+        elif origin == "lower_left":
+            xlow, ylow, zlow = (0.0, 0.0, 0.0)
+            xhigh, yhigh, zhigh = (lx, ly, lz)
+        else:
+            raise ValueError(r"Box origin should be at center/lower_left")
+
+        for i in range(self.nAtoms):
+            if lpbc[0]:
+                if self.x[i] < xlow:
+                    self.x[i] += lx
+                elif self.x[i] > xhigh:
+                    self.x[i] -= lx
+
+            if lpbc[1]:
+                if self.y[i] < ylow:
+                    self.y[i] += ly
+                elif self.y[i] > yhigh:
+                    self.y[i] -= ly
+
+            if lpbc[2]:
+                if self.z[i] < zlow:
+                    self.z[i] += lz
+                elif self.z[i] > zhigh:
+                    self.z[i] -= lz
