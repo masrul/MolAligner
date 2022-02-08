@@ -171,7 +171,7 @@ class Aligner(Molecule):
         for other in collection:
             self.merge(other)
 
-        # replicate along x-axis
+        # replicate along y-axis
         collection = []
         for i in range(1, abs(nb)):
             other = self.clone()
@@ -186,7 +186,7 @@ class Aligner(Molecule):
         for other in collection:
             self.merge(other)
 
-        # replicate along x-axis
+        # replicate along y-axis
         collection = []
         for i in range(1, abs(nc)):
             other = self.clone()
