@@ -1,0 +1,578 @@
+REMARK   1 File created by GaussView 6.0.16
+HETATM    1  O           0      10.069   1.380   9.223                       O
+HETATM    2  O           0       7.785   1.467  10.524                       O
+HETATM    3  O           0       8.026   2.696   8.214                       O
+HETATM    4  O           0       7.980   0.067   8.314                       O
+HETATM    5  O           0       6.610   0.760  12.777                       O
+HETATM    6  O           0       6.624  18.860  10.717                       O
+HETATM    7  O           0       5.165   1.309  10.653                       O
+HETATM    8  O           0       5.846   2.558   1.393                       O
+HETATM    9  O           0       4.086   0.898   0.361                       O
+HETATM   10  O           0       5.898   0.020   2.055                       O
+HETATM   11  O           0       2.160   2.497   1.160                       O
+HETATM   12  O           0       1.700   0.730  12.410                       O
+HETATM   13  O           0       2.614   1.542  10.080                       O
+HETATM   14  O           0       1.463  18.927  10.293                       O
+HETATM   15  O           0       4.422   2.592   8.484                       O
+HETATM   16  O           0       9.866  16.872   9.421                       O
+HETATM   17  O           0       7.395  16.404  10.176                       O
+HETATM   18  O           0       8.564  14.803   8.452                       O
+HETATM   19  O           0       6.463  16.996  12.565                       O
+HETATM   20  O           0       4.842  16.939  10.500                       O
+HETATM   21  O           0       5.912  14.803   0.761                       O
+HETATM   22  O           0       3.970  16.408   0.004                       O
+HETATM   23  O           0       1.905  14.803   0.269                       O
+HETATM   24  O           0       1.625  17.113  12.189                       O
+HETATM   25  O           0       2.365  16.521   9.733                       O
+HETATM   26  O           0       4.251  14.803   9.085                       O
+HETATM   27 Si           0       8.466   1.403   9.065                      Si
+HETATM   28 Si           0       6.547   0.663  11.171                      Si
+HETATM   29 Si           0       5.609   1.058   0.861                      Si
+HETATM   30 Si           0       2.503   1.015   0.632                      Si
+HETATM   31 Si           0       1.448   0.711  10.820                      Si
+HETATM   32 Si           0       4.086   1.356   9.458                      Si
+HETATM   33 Si           0       8.428  16.331   8.943                      Si
+HETATM   34 Si           0       6.332  17.300  10.988                      Si
+HETATM   35 Si           0       5.491  16.339   0.528                      Si
+HETATM   36 Si           0       2.381  16.341   0.240                      Si
+HETATM   37 Si           0       1.320  17.358  10.628                      Si
+HETATM   38 Si           0       3.912  16.359   9.320                      Si
+HETATM   39  O           0      20.066  18.358   2.652                       O
+HETATM   40  O           0       0.024   8.489  10.490                       O
+HETATM   41  O           0      10.021  11.249   3.919                       O
+HETATM   42  O           0      10.021  18.358   3.919                       O
+HETATM   43  O           0       0.024   1.380  10.490                       O
+HETATM   44  O           0      20.066  11.249   2.652                       O
+HETATM   45  O           0      10.069   8.489   9.223                       O
+HETATM   46  O           0       2.260  18.271   3.953                       O
+HETATM   47  O           0      17.830   8.402   9.189                       O
+HETATM   48  O           0      12.305  11.336   2.618                       O
+HETATM   49  O           0      12.305  18.271   2.618                       O
+HETATM   50  O           0      17.830   1.467   9.189                       O
+HETATM   51  O           0       2.260  11.336   3.953                       O
+HETATM   52  O           0       7.785   8.402  10.524                       O
+HETATM   53  O           0       2.019  17.042   1.643                       O
+HETATM   54  O           0      18.071   7.173  11.499                       O
+HETATM   55  O           0      12.064  12.565   4.928                       O
+HETATM   56  O           0      12.064  17.042   4.928                       O
+HETATM   57  O           0      18.071   2.696  11.499                       O
+HETATM   58  O           0       2.019  12.565   1.643                       O
+HETATM   59  O           0       8.026   7.173   8.214                       O
+HETATM   60  O           0       2.065  19.671   1.743                       O
+HETATM   61  O           0      18.025   9.802  11.399                       O
+HETATM   62  O           0      12.110   9.936   4.828                       O
+HETATM   63  O           0      12.110  19.671   4.828                       O
+HETATM   64  O           0      18.025   0.067  11.399                       O
+HETATM   65  O           0       2.065   9.936   1.743                       O
+HETATM   66  O           0       7.980   9.802   8.314                       O
+HETATM   67  O           0       3.435  18.978   6.206                       O
+HETATM   68  O           0      16.655   9.109   6.936                       O
+HETATM   69  O           0      13.480  10.629   0.365                       O
+HETATM   70  O           0      13.480  18.978   0.365                       O
+HETATM   71  O           0      16.655   0.760   6.936                       O
+HETATM   72  O           0       3.435  10.629   6.206                       O
+HETATM   73  O           0       6.610   9.109  12.777                       O
+HETATM   74  O           0       3.421   0.878   4.146                       O
+HETATM   75  O           0      16.669  10.747   8.996                       O
+HETATM   76  O           0      13.466   8.991   2.425                       O
+HETATM   77  O           0      13.466   0.878   2.425                       O
+HETATM   78  O           0      16.669  18.860   8.996                       O
+HETATM   79  O           0       3.421   8.991   4.146                       O
+HETATM   80  O           0       6.624  10.747  10.717                       O
+HETATM   81  O           0       4.880  18.429   4.082                       O
+HETATM   82  O           0      15.210   8.560   9.060                       O
+HETATM   83  O           0      14.925  11.178   2.489                       O
+HETATM   84  O           0      14.925  18.429   2.489                       O
+HETATM   85  O           0      15.210   1.309   9.060                       O
+HETATM   86  O           0       4.880  11.178   4.082                       O
+HETATM   87  O           0       5.165   8.560  10.653                       O
+HETATM   88  O           0       4.199  17.180   7.964                       O
+HETATM   89  O           0      15.891   7.311   5.178                       O
+HETATM   90  O           0      14.244  12.427  11.749                       O
+HETATM   91  O           0      14.244  17.180  11.749                       O
+HETATM   92  O           0      15.891   2.558   5.178                       O
+HETATM   93  O           0       4.199  12.427   7.964                       O
+HETATM   94  O           0       5.846   7.311   1.393                       O
+HETATM   95  O           0       5.959  18.840   6.932                       O
+HETATM   96  O           0      14.131   8.971   6.210                       O
+HETATM   97  O           0      16.004  10.767  12.781                       O
+HETATM   98  O           0      16.004  18.840  12.781                       O
+HETATM   99  O           0      14.131   0.898   6.210                       O
+HETATM  100  O           0       5.959  10.767   6.932                       O
+HETATM  101  O           0       4.086   8.971   0.361                       O
+HETATM  102  O           0       4.147  19.718   8.626                       O
+HETATM  103  O           0      15.943   9.849   4.516                       O
+HETATM  104  O           0      14.192   9.889  11.087                       O
+HETATM  105  O           0      14.192  19.718  11.087                       O
+HETATM  106  O           0      15.943   0.020   4.516                       O
+HETATM  107  O           0       4.147   9.889   8.626                       O
+HETATM  108  O           0       5.898   9.849   2.055                       O
+HETATM  109  O           0       7.885  17.241   7.731                       O
+HETATM  110  O           0      12.205   7.372   5.411                       O
+HETATM  111  O           0      17.930  12.366  11.982                       O
+HETATM  112  O           0      17.930  17.241  11.982                       O
+HETATM  113  O           0      12.205   2.497   5.411                       O
+HETATM  114  O           0       7.885  12.366   7.731                       O
+HETATM  115  O           0       2.160   7.372   1.160                       O
+HETATM  116  O           0       8.345  19.008   5.839                       O
+HETATM  117  O           0      11.745   9.139   7.303                       O
+HETATM  118  O           0      18.390  10.599   0.732                       O
+HETATM  119  O           0      18.390  19.008   0.732                       O
+HETATM  120  O           0      11.745   0.730   7.303                       O
+HETATM  121  O           0       8.345  10.599   5.839                       O
+HETATM  122  O           0       1.700   9.139  12.410                       O
+HETATM  123  O           0       7.431  18.196   3.509                       O
+HETATM  124  O           0      12.659   8.327   9.633                       O
+HETATM  125  O           0      17.476  11.411   3.062                       O
+HETATM  126  O           0      17.476  18.196   3.062                       O
+HETATM  127  O           0      12.659   1.542   9.633                       O
+HETATM  128  O           0       7.431  11.411   3.509                       O
+HETATM  129  O           0       2.614   8.327  10.080                       O
+HETATM  130  O           0       8.582   0.811   3.722                       O
+HETATM  131  O           0      11.508  10.680   9.420                       O
+HETATM  132  O           0      18.627   9.058   2.849                       O
+HETATM  133  O           0      18.627   0.811   2.849                       O
+HETATM  134  O           0      11.508  18.927   9.420                       O
+HETATM  135  O           0       8.582   9.058   3.722                       O
+HETATM  136  O           0       1.463  10.680  10.293                       O
+HETATM  137  O           0       5.623  17.146   1.913                       O
+HETATM  138  O           0      14.467   7.277  11.229                       O
+HETATM  139  O           0      15.668  12.461   4.658                       O
+HETATM  140  O           0      15.668  17.146   4.658                       O
+HETATM  141  O           0      14.467   2.592  11.229                       O
+HETATM  142  O           0       5.623  12.461   1.913                       O
+HETATM  143  O           0       4.422   7.277   8.484                       O
+HETATM  144  O           0       0.179   2.866   2.850                       O
+HETATM  145  O           0      19.911  12.735  10.292                       O
+HETATM  146  O           0      10.224   7.003   3.721                       O
+HETATM  147  O           0      10.224   2.866   3.721                       O
+HETATM  148  O           0      19.911  16.872  10.292                       O
+HETATM  149  O           0       0.179   7.003   2.850                       O
+HETATM  150  O           0       9.866  12.735   9.421                       O
+HETATM  151  O           0       2.650   3.334   3.605                       O
+HETATM  152  O           0      17.440  13.203   9.537                       O
+HETATM  153  O           0      12.695   6.535   2.966                       O
+HETATM  154  O           0      12.695   3.334   2.966                       O
+HETATM  155  O           0      17.440  16.404   9.537                       O
+HETATM  156  O           0       2.650   6.535   3.605                       O
+HETATM  157  O           0       7.395  13.203  10.176                       O
+HETATM  158  O           0       1.481   4.934   1.881                       O
+HETATM  159  O           0      18.609  14.803  11.261                       O
+HETATM  160  O           0      11.526   4.934   4.690                       O
+HETATM  161  O           0       3.582   2.742   5.994                       O
+HETATM  162  O           0      16.508  12.611   7.148                       O
+HETATM  163  O           0      13.627   7.127   0.577                       O
+HETATM  164  O           0      13.627   2.742   0.577                       O
+HETATM  165  O           0      16.508  16.996   7.148                       O
+HETATM  166  O           0       3.582   7.127   5.994                       O
+HETATM  167  O           0       6.463  12.611  12.565                       O
+HETATM  168  O           0       5.203   2.799   3.929                       O
+HETATM  169  O           0      14.887  12.668   9.213                       O
+HETATM  170  O           0      15.248   7.070   2.642                       O
+HETATM  171  O           0      15.248   2.799   2.642                       O
+HETATM  172  O           0      14.887  16.939   9.213                       O
+HETATM  173  O           0       5.203   7.070   3.929                       O
+HETATM  174  O           0       4.842  12.668  10.500                       O
+HETATM  175  O           0       4.133   4.934   7.332                       O
+HETATM  176  O           0      15.957  14.803   5.810                       O
+HETATM  177  O           0      14.178   4.934  12.381                       O
+HETATM  178  O           0       6.075   3.330   6.575                       O
+HETATM  179  O           0      14.015  13.199   6.567                       O
+HETATM  180  O           0      16.120   6.539  13.138                       O
+HETATM  181  O           0      16.120   3.330  13.138                       O
+HETATM  182  O           0      14.015  16.408   6.567                       O
+HETATM  183  O           0       6.075   6.539   6.575                       O
+HETATM  184  O           0       3.970  13.199   0.004                       O
+HETATM  185  O           0       8.140   4.934   6.840                       O
+HETATM  186  O           0      11.950  14.803   6.302                       O
+HETATM  187  O           0      18.185   4.934  12.873                       O
+HETATM  188  O           0       8.420   2.625   5.618                       O
+HETATM  189  O           0      11.670  12.494   7.524                       O
+HETATM  190  O           0      18.465   7.244   0.953                       O
+HETATM  191  O           0      18.465   2.625   0.953                       O
+HETATM  192  O           0      11.670  17.113   7.524                       O
+HETATM  193  O           0       8.420   7.244   5.618                       O
+HETATM  194  O           0       1.625  12.494  12.189                       O
+HETATM  195  O           0       7.680   3.217   3.162                       O
+HETATM  196  O           0      12.410  13.086   9.980                       O
+HETATM  197  O           0      17.725   6.652   3.409                       O
+HETATM  198  O           0      17.725   3.217   3.409                       O
+HETATM  199  O           0      12.410  16.521   9.980                       O
+HETATM  200  O           0       7.680   6.652   3.162                       O
+HETATM  201  O           0       2.365  13.086   9.733                       O
+HETATM  202  O           0       5.794   4.934   2.514                       O
+HETATM  203  O           0      14.296  14.803  10.628                       O
+HETATM  204  O           0      15.839   4.934   4.057                       O
+HETATM  205 Si           0       1.579  18.335   2.494                      Si
+HETATM  206 Si           0      18.511   8.466  10.648                      Si
+HETATM  207 Si           0      11.624  11.272   4.077                      Si
+HETATM  208 Si           0      11.624  18.335   4.077                      Si
+HETATM  209 Si           0      18.511   1.403  10.648                      Si
+HETATM  210 Si           0       1.579  11.272   2.494                      Si
+HETATM  211 Si           0       8.466   8.466   9.065                      Si
+HETATM  212 Si           0       3.498  19.075   4.600                      Si
+HETATM  213 Si           0      16.592   9.206   8.542                      Si
+HETATM  214 Si           0      13.543  10.532   1.971                      Si
+HETATM  215 Si           0      13.543  19.075   1.971                      Si
+HETATM  216 Si           0      16.592   0.663   8.542                      Si
+HETATM  217 Si           0       3.498  10.532   4.600                      Si
+HETATM  218 Si           0       6.547   9.206  11.171                      Si
+HETATM  219 Si           0       4.436  18.680   7.432                      Si
+HETATM  220 Si           0      15.654   8.811   5.710                      Si
+HETATM  221 Si           0      14.481  10.927  12.281                      Si
+HETATM  222 Si           0      14.481  18.680  12.281                      Si
+HETATM  223 Si           0      15.654   1.058   5.710                      Si
+HETATM  224 Si           0       4.436  10.927   7.432                      Si
+HETATM  225 Si           0       5.609   8.811   0.861                      Si
+HETATM  226 Si           0       7.542  18.723   7.203                      Si
+HETATM  227 Si           0      12.548   8.854   5.939                      Si
+HETATM  228 Si           0      17.587  10.884  12.510                      Si
+HETATM  229 Si           0      17.587  18.723  12.510                      Si
+HETATM  230 Si           0      12.548   1.015   5.939                      Si
+HETATM  231 Si           0       7.542  10.884   7.203                      Si
+HETATM  232 Si           0       2.503   8.854   0.632                      Si
+HETATM  233 Si           0       8.597  19.027   4.249                      Si
+HETATM  234 Si           0      11.493   9.158   8.893                      Si
+HETATM  235 Si           0      18.642  10.580   2.322                      Si
+HETATM  236 Si           0      18.642  19.027   2.322                      Si
+HETATM  237 Si           0      11.493   0.711   8.893                      Si
+HETATM  238 Si           0       8.597  10.580   4.249                      Si
+HETATM  239 Si           0       1.448   9.158  10.820                      Si
+HETATM  240 Si           0       5.959  18.382   2.887                      Si
+HETATM  241 Si           0      14.131   8.513  10.255                      Si
+HETATM  242 Si           0      16.004  11.225   3.684                      Si
+HETATM  243 Si           0      16.004  18.382   3.684                      Si
+HETATM  244 Si           0      14.131   1.356  10.255                      Si
+HETATM  245 Si           0       5.959  11.225   2.887                      Si
+HETATM  246 Si           0       4.086   8.513   9.458                      Si
+HETATM  247 Si           0       1.617   3.407   2.372                      Si
+HETATM  248 Si           0      18.473  13.276  10.770                      Si
+HETATM  249 Si           0      11.662   6.462   4.199                      Si
+HETATM  250 Si           0      11.662   3.407   4.199                      Si
+HETATM  251 Si           0      18.473  16.331  10.770                      Si
+HETATM  252 Si           0       1.617   6.462   2.372                      Si
+HETATM  253 Si           0       8.428  13.276   8.943                      Si
+HETATM  254 Si           0       3.713   2.438   4.417                      Si
+HETATM  255 Si           0      16.377  12.307   8.725                      Si
+HETATM  256 Si           0      13.758   7.431   2.154                      Si
+HETATM  257 Si           0      13.758   2.438   2.154                      Si
+HETATM  258 Si           0      16.377  17.300   8.725                      Si
+HETATM  259 Si           0       3.713   7.431   4.417                      Si
+HETATM  260 Si           0       6.332  12.307  10.988                      Si
+HETATM  261 Si           0       4.554   3.399   7.099                      Si
+HETATM  262 Si           0      15.536  13.268   6.043                      Si
+HETATM  263 Si           0      14.599   6.470  12.614                      Si
+HETATM  264 Si           0      14.599   3.399  12.614                      Si
+HETATM  265 Si           0      15.536  16.339   6.043                      Si
+HETATM  266 Si           0       4.554   6.470   7.099                      Si
+HETATM  267 Si           0       5.491  13.268   0.528                      Si
+HETATM  268 Si           0       7.664   3.397   6.811                      Si
+HETATM  269 Si           0      12.426  13.266   6.331                      Si
+HETATM  270 Si           0      17.709   6.472  12.902                      Si
+HETATM  271 Si           0      17.709   3.397  12.902                      Si
+HETATM  272 Si           0      12.426  16.341   6.331                      Si
+HETATM  273 Si           0       7.664   6.472   6.811                      Si
+HETATM  274 Si           0       2.381  13.266   0.240                      Si
+HETATM  275 Si           0       8.725   2.380   4.057                      Si
+HETATM  276 Si           0      11.365  12.249   9.085                      Si
+HETATM  277 Si           0      18.770   7.489   2.514                      Si
+HETATM  278 Si           0      18.770   2.380   2.514                      Si
+HETATM  279 Si           0      11.365  17.358   9.085                      Si
+HETATM  280 Si           0       8.725   7.489   4.057                      Si
+HETATM  281 Si           0       1.320  12.249  10.628                      Si
+HETATM  282 Si           0       6.133   3.379   2.749                      Si
+HETATM  283 Si           0      13.957  13.248  10.393                      Si
+HETATM  284 Si           0      16.178   6.490   3.822                      Si
+HETATM  285 Si           0      16.178   3.379   3.822                      Si
+HETATM  286 Si           0      13.957  16.359  10.393                      Si
+HETATM  287 Si           0       6.133   6.490   2.749                      Si
+HETATM  288 Si           0       3.912  13.248   9.320                      Si
+END
+CONECT    1   27  237
+CONECT    2   27   28
+CONECT    3   27  268
+CONECT    4   27  226
+CONECT    5   28   29
+CONECT    6   34   28
+CONECT    7   28   32
+CONECT    8   29  282
+CONECT    9   29   30
+CONECT   10   29  240
+CONECT   11   30  247
+CONECT   12   31   30
+CONECT   13   31   32
+CONECT   14   37   31
+CONECT   15   32  261
+CONECT   16   33  279
+CONECT   17   33   34
+CONECT   18   33  253
+CONECT   19   34   35
+CONECT   20   34   38
+CONECT   21   35  267
+CONECT   22   35   36
+CONECT   23   36  274
+CONECT   24   37   36
+CONECT   25   37   38
+CONECT   26   38  288
+CONECT   27    1    2    3    4
+CONECT   28    2    5    6    7
+CONECT   29    5    8    9   10
+CONECT   30    9   11   12   60
+CONECT   31   12   13   14   43
+CONECT   32    7   13   15  102
+CONECT   33   16   17   18  109
+CONECT   34    6   17   19   20
+CONECT   35   19   21   22  137
+CONECT   36   22   23   24   53
+CONECT   37   14   24   25  148
+CONECT   38   20   25   26   88
+CONECT   39  236  205
+CONECT   40  239  206
+CONECT   41  207  238
+CONECT   42  208  233
+CONECT   43   31  209
+CONECT   44  235  210
+CONECT   45  211  234
+CONECT   46  205  212
+CONECT   47  206  213
+CONECT   48  207  214
+CONECT   49  208  215
+CONECT   50  209  216
+CONECT   51  210  217
+CONECT   52  211  218
+CONECT   53   36  205
+CONECT   54  206  270
+CONECT   55  207  269
+CONECT   56  208  272
+CONECT   57  209  271
+CONECT   58  210  274
+CONECT   59  211  273
+CONECT   60   30  205
+CONECT   61  206  228
+CONECT   62  207  227
+CONECT   63  208  230
+CONECT   64  209  229
+CONECT   65  210  232
+CONECT   66  211  231
+CONECT   67  212  219
+CONECT   68  213  220
+CONECT   69  214  221
+CONECT   70  215  222
+CONECT   71  216  223
+CONECT   72  217  224
+CONECT   73  218  225
+CONECT   74  254  212
+CONECT   75  213  255
+CONECT   76  214  256
+CONECT   77  257  215
+CONECT   78  258  216
+CONECT   79  217  259
+CONECT   80  218  260
+CONECT   81  212  240
+CONECT   82  213  241
+CONECT   83  214  242
+CONECT   84  215  243
+CONECT   85  216  244
+CONECT   86  217  245
+CONECT   87  218  246
+CONECT   88   38  219
+CONECT   89  220  284
+CONECT   90  221  283
+CONECT   91  222  286
+CONECT   92  223  285
+CONECT   93  224  288
+CONECT   94  225  287
+CONECT   95  219  226
+CONECT   96  220  227
+CONECT   97  221  228
+CONECT   98  222  229
+CONECT   99  223  230
+CONECT  100  224  231
+CONECT  101  225  232
+CONECT  102   32  219
+CONECT  103  220  242
+CONECT  104  221  241
+CONECT  105  222  244
+CONECT  106  223  243
+CONECT  107  224  246
+CONECT  108  225  245
+CONECT  109   33  226
+CONECT  110  227  249
+CONECT  111  228  248
+CONECT  112  229  251
+CONECT  113  230  250
+CONECT  114  231  253
+CONECT  115  232  252
+CONECT  116  226  233
+CONECT  117  227  234
+CONECT  118  235  228
+CONECT  119  236  229
+CONECT  120  230  237
+CONECT  121  231  238
+CONECT  122  239  232
+CONECT  123  233  240
+CONECT  124  234  241
+CONECT  125  235  242
+CONECT  126  236  243
+CONECT  127  237  244
+CONECT  128  238  245
+CONECT  129  239  246
+CONECT  130  275  233
+CONECT  131  234  276
+CONECT  132  235  277
+CONECT  133  278  236
+CONECT  134  279  237
+CONECT  135  238  280
+CONECT  136  239  281
+CONECT  137   35  240
+CONECT  138  241  263
+CONECT  139  242  262
+CONECT  140  243  265
+CONECT  141  244  264
+CONECT  142  245  267
+CONECT  143  246  266
+CONECT  144  247  278
+CONECT  145  248  281
+CONECT  146  249  280
+CONECT  147  250  275
+CONECT  148   37  251
+CONECT  149  252  277
+CONECT  150  253  276
+CONECT  151  247  254
+CONECT  152  248  255
+CONECT  153  249  256
+CONECT  154  250  257
+CONECT  155  251  258
+CONECT  156  252  259
+CONECT  157  253  260
+CONECT  158  247  252
+CONECT  159  248  251
+CONECT  160  249  250
+CONECT  161  254  261
+CONECT  162  255  262
+CONECT  163  256  263
+CONECT  164  257  264
+CONECT  165  258  265
+CONECT  166  259  266
+CONECT  167  260  267
+CONECT  168  254  282
+CONECT  169  255  283
+CONECT  170  256  284
+CONECT  171  257  285
+CONECT  172  258  286
+CONECT  173  259  287
+CONECT  174  260  288
+CONECT  175  261  266
+CONECT  176  262  265
+CONECT  177  263  264
+CONECT  178  261  268
+CONECT  179  262  269
+CONECT  180  263  270
+CONECT  181  264  271
+CONECT  182  265  272
+CONECT  183  266  273
+CONECT  184  267  274
+CONECT  185  268  273
+CONECT  186  269  272
+CONECT  187  270  271
+CONECT  188  268  275
+CONECT  189  269  276
+CONECT  190  277  270
+CONECT  191  278  271
+CONECT  192  272  279
+CONECT  193  273  280
+CONECT  194  281  274
+CONECT  195  275  282
+CONECT  196  276  283
+CONECT  197  277  284
+CONECT  198  278  285
+CONECT  199  279  286
+CONECT  200  280  287
+CONECT  201  281  288
+CONECT  202  282  287
+CONECT  203  283  286
+CONECT  204  284  285
+CONECT  205   39   46   53   60
+CONECT  206   40   47   54   61
+CONECT  207   41   48   55   62
+CONECT  208   42   49   56   63
+CONECT  209   43   50   57   64
+CONECT  210   44   51   58   65
+CONECT  211   45   52   59   66
+CONECT  212   46   67   74   81
+CONECT  213   47   68   75   82
+CONECT  214   48   69   76   83
+CONECT  215   49   70   77   84
+CONECT  216   50   71   78   85
+CONECT  217   51   72   79   86
+CONECT  218   52   73   80   87
+CONECT  219   67   88   95  102
+CONECT  220   68   89   96  103
+CONECT  221   69   90   97  104
+CONECT  222   70   91   98  105
+CONECT  223   71   92   99  106
+CONECT  224   72   93  100  107
+CONECT  225   73   94  101  108
+CONECT  226    4   95  109  116
+CONECT  227   62   96  110  117
+CONECT  228   61   97  111  118
+CONECT  229   64   98  112  119
+CONECT  230   63   99  113  120
+CONECT  231   66  100  114  121
+CONECT  232   65  101  115  122
+CONECT  233   42  116  123  130
+CONECT  234   45  117  124  131
+CONECT  235   44  118  125  132
+CONECT  236   39  119  126  133
+CONECT  237    1  120  127  134
+CONECT  238   41  121  128  135
+CONECT  239   40  122  129  136
+CONECT  240   10   81  123  137
+CONECT  241   82  104  124  138
+CONECT  242   83  103  125  139
+CONECT  243   84  106  126  140
+CONECT  244   85  105  127  141
+CONECT  245   86  108  128  142
+CONECT  246   87  107  129  143
+CONECT  247   11  144  151  158
+CONECT  248  111  145  152  159
+CONECT  249  110  146  153  160
+CONECT  250  113  147  154  160
+CONECT  251  112  148  155  159
+CONECT  252  115  149  156  158
+CONECT  253   18  114  150  157
+CONECT  254   74  151  161  168
+CONECT  255   75  152  162  169
+CONECT  256   76  153  163  170
+CONECT  257   77  154  164  171
+CONECT  258   78  155  165  172
+CONECT  259   79  156  166  173
+CONECT  260   80  157  167  174
+CONECT  261   15  161  175  178
+CONECT  262  139  162  176  179
+CONECT  263  138  163  177  180
+CONECT  264  141  164  177  181
+CONECT  265  140  165  176  182
+CONECT  266  143  166  175  183
+CONECT  267   21  142  167  184
+CONECT  268    3  178  185  188
+CONECT  269   55  179  186  189
+CONECT  270   54  180  187  190
+CONECT  271   57  181  187  191
+CONECT  272   56  182  186  192
+CONECT  273   59  183  185  193
+CONECT  274   23   58  184  194
+CONECT  275  130  147  188  195
+CONECT  276  131  150  189  196
+CONECT  277  132  149  190  197
+CONECT  278  133  144  191  198
+CONECT  279   16  134  192  199
+CONECT  280  135  146  193  200
+CONECT  281  136  145  194  201
+CONECT  282    8  168  195  202
+CONECT  283   90  169  196  203
+CONECT  284   89  170  197  204
+CONECT  285   92  171  198  204
+CONECT  286   91  172  199  203
+CONECT  287   94  173  200  202
+CONECT  288   26   93  174  201

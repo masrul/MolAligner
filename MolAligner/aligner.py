@@ -151,3 +151,54 @@ class Aligner(Molecule):
                     self.z[i] += lz
                 elif self.z[i] > zhigh:
                     self.z[i] -= lz
+
+    def pbc_replicate(self, box, multiple):
+        lx, ly, lz = box
+        na, nb, nc = multiple
+
+        # replicate along x-axis
+        collection = []
+        for i in range(1, abs(na)):
+            other = self.clone()
+            if na > 0:
+                trans_vec = [i * lx, 0, 0]
+            else:
+                trans_vec = [-i * lx, 0, 0]
+
+            other.move_by(trans_vec)
+            collection.append(other)
+
+        for other in collection:
+            self.merge(other)
+
+        # replicate along x-axis
+        collection = []
+        for i in range(1, abs(nb)):
+            other = self.clone()
+            if nb > 0:
+                trans_vec = [0, i * ly, 0]
+            else:
+                trans_vec = [0, -i * ly, 0]
+
+            other.move_by(trans_vec)
+            collection.append(other)
+
+        for other in collection:
+            self.merge(other)
+
+        # replicate along x-axis
+        collection = []
+        for i in range(1, abs(nc)):
+            other = self.clone()
+            if nc > 0:
+                trans_vec = [0, 0, i * lz]
+            else:
+                trans_vec = [0, 0, -i * lz]
+            other.move_by(trans_vec)
+            collection.append(other)
+
+        for other in collection:
+            self.merge(other)
+
+        self.box = np.array([abs(na) * lx, abs(nb) * ly, abs(nc) * lz])
+        self.alias_xyz()
