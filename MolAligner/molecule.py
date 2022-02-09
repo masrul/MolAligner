@@ -184,7 +184,7 @@ class Molecule:
             self.z[atom_id] = float(sub_strs[3]) * angstrom
             atom_id += 1
 
-    def write(self, out_file, write_mode="w", boxLen=None):
+    def write(self, out_file, write_mode="w", box=None):
         file_extension = pathlib.Path(out_file).suffix
 
         if file_extension == ".pdb":
@@ -192,7 +192,7 @@ class Molecule:
         elif file_extension == ".xyz":
             self._write_xyz(out_file, write_mode)
         elif file_extension == ".gro":
-            self._write_gro(out_file, write_mode, boxLen)
+            self._write_gro(out_file, write_mode, box)
         else:
             raise ValueError(f"Unsupported file format: {file_extension}")
 
@@ -219,13 +219,13 @@ class Molecule:
 
         file_handler.close()
 
-    def _write_gro(self, out_file, write_mode, boxLen):
+    def _write_gro(self, out_file, write_mode, box):
         file_handler = open(out_file, write_mode)
         max_atomid = 10000
         max_resid = 1000
 
-        if boxLen is not None:
-            lx, ly, lz = boxLen
+        if box is not None:
+            lx, ly, lz = box
         else:
             lx, ly, lz = self.box
 
