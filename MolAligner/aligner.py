@@ -12,7 +12,6 @@ class Aligner(Molecule):
         self.coords += np.array(trans_vec).reshape((3, 1))
 
     def move_to(self, target_position, target_atom_id=None):
-
         if target_atom_id:
             xref = self.x[target_atom_id - 1]
             yref = self.y[target_atom_id - 1]
@@ -30,7 +29,6 @@ class Aligner(Molecule):
         self.coords += np.array(trans_vec).reshape((3, 1))
 
     def rotate(self, rotation_mat):
-
         self.coords = np.matmul(rotation_mat, self.coords)
         self.alias_xyz()
 
@@ -42,7 +40,6 @@ class Aligner(Molecule):
         return self.get_position(j) - self.get_position(i)
 
     def get_center(self, group_ndx=None):
-
         if group_ndx is None:
             xcom = self.x.mean()
             ycom = self.y.mean()
@@ -155,16 +152,13 @@ class Aligner(Molecule):
     def pbc_replicate(self, box, multiple):
         lx, ly, lz = box
         na, nb, nc = multiple
+        sign_a, sign_b, sign_c = np.sign(multiple)
 
         # replicate along x-axis
         collection = []
         for i in range(1, abs(na)):
             other = self.clone()
-            if na > 0:
-                trans_vec = [i * lx, 0, 0]
-            else:
-                trans_vec = [-i * lx, 0, 0]
-
+            trans_vec = [i * lx * sign_a, 0, 0]
             other.move_by(trans_vec)
             collection.append(other)
 
@@ -175,25 +169,18 @@ class Aligner(Molecule):
         collection = []
         for i in range(1, abs(nb)):
             other = self.clone()
-            if nb > 0:
-                trans_vec = [0, i * ly, 0]
-            else:
-                trans_vec = [0, -i * ly, 0]
-
+            trans_vec = [0, i * ly * sign_b, 0]
             other.move_by(trans_vec)
             collection.append(other)
 
         for other in collection:
             self.merge(other)
 
-        # replicate along y-axis
+        # replicate along z-axis
         collection = []
         for i in range(1, abs(nc)):
             other = self.clone()
-            if nc > 0:
-                trans_vec = [0, 0, i * lz]
-            else:
-                trans_vec = [0, 0, -i * lz]
+            trans_vec = [0, 0, i * lz * sign_c]
             other.move_by(trans_vec)
             collection.append(other)
 
