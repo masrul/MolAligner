@@ -268,4 +268,28 @@ class Molecule:
             )
 
     def create_residue_tracker(self):
-        pass 
+        residue_tracker=[] 
+
+        for i in range(self.nAtoms):
+            resid = self.resids[i]
+            resname = self.resnames[i]
+
+            if len(residue_tracker) == 0: 
+                tracker={'id':resid,'name':resname,'nAtoms':1,'sIDx':i}
+                residue_tracker.append(tracker)
+            elif residue_tracker[-1]['id'] == resid and residue_tracker[-1]['name'] ==resname:
+                residue_tracker[-1]['nAtoms'] +=1
+            else: 
+                tracker={'id':resid,'name':resname,'nAtoms':1,'sIDx':i}
+                residue_tracker.append(tracker)
+
+        self.residue_tracker = residue_tracker
+        self.nResidues = len(residue_tracker)
+        self.residue_summary = {}
+
+        for tracker in residue_tracker:
+            if tracker['name'] not in self.residue_summary:
+                self.residue_summary[tracker['name']] = {'n':1,'nAtoms':tracker['nAtoms']}
+            else: 
+                self.residue_summary[tracker['name']]['n'] +=1
+
