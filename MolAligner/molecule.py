@@ -202,6 +202,7 @@ class Molecule:
 
         for i in range(self.nAtoms):
             atomid = i + 1
+            atomid = wrap_around(atomid,max_atomid)
             resid = wrap_around(self.resids[i], max_resid)
             file_handler.write(
                 "%-6s%5d %-4s %3s  %4d    %8.3f%8.3f%8.3f\n"
@@ -222,7 +223,7 @@ class Molecule:
     def _write_gro(self, out_file, write_mode, box):
         file_handler = open(out_file, write_mode)
         max_atomid = 10000
-        max_resid = 1000
+        max_resid = 10000
 
         if box is not None:
             lx, ly, lz = box
@@ -234,13 +235,16 @@ class Molecule:
 
         groFMT = "%5d%-5s%5s%5d%8.3f%8.3f%8.3f\n"
         for i in range(self.nAtoms):
+            atomid = i + 1
+            atomid = wrap_around(atomid,max_atomid)
+            resid = wrap_around(self.resids[i], max_resid)
             file_handler.write(
                 groFMT
                 % (
-                    self.resids[i] % max_resid,
+                    resid,
                     self.resnames[i],
                     self.symbols[i],
-                    self.atomids[i] % max_atomid,
+                    atomid,
                     self.x[i] / nanometer,
                     self.y[i] / nanometer,
                     self.z[i] / nanometer,
