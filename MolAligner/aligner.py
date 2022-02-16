@@ -118,9 +118,18 @@ class Aligner(Molecule):
 
         return paxis
 
-    def pbc_wrap(self, box, lpbc=(True, True, True), origin="lower_left"):
-        lx, ly, lz = box
+    def pbc_wrap(self, box, lpbc=(True, True, True), origin="lower_left",wrap_type='atom'):
+        if wrap_type == 'atom':
+            self._pbc_wrap_atom(box,lpbc,origin)
+        elif wrap_type == "residue":
+            self._pbc_wrap_residue(box,lpbc,origin)
+        else: 
+            raise ValueError(r'PBC wrap_type = {wrap_type} not supported!')
 
+
+    def _pbc_wrap_atom(self, box, lpbc=(True, True, True), origin="lower_left"):
+
+        lx, ly, lz = box
         if origin == "center":
             xlow, ylow, zlow = (-0.5 * lx, -0.5 * ly, -0.5 * lz)
             xhigh, yhigh, zhigh = (0.5 * lx, 0.5 * ly, 0.5 * lz)
@@ -148,6 +157,43 @@ class Aligner(Molecule):
                     self.z[i] += lz
                 elif self.z[i] > zhigh:
                     self.z[i] -= lz
+
+    def _pbc_wrap_residue(self, box, lpbc=(True, True, True), origin="lower_left"):
+
+        lx, ly, lz = box
+        if origin == "center":
+            xlow, ylow, zlow = (-0.5 * lx, -0.5 * ly, -0.5 * lz)
+            xhigh, yhigh, zhigh = (0.5 * lx, 0.5 * ly, 0.5 * lz)
+        elif origin == "lower_left":
+            xlow, ylow, zlow = (0.0, 0.0, 0.0)
+            xhigh, yhigh, zhigh = (lx, ly, lz)
+        else:
+            raise ValueError(r"Box origin should be at center/lower_left")
+
+        self.create_residue_tracker()
+        for i in range(self.nResidues):
+            nAtoms = self.residue_tracker[i]['nAtoms']
+            sIDx = self.residue_tracker[i]['sIDx']
+            eIDx = sIDx + nAtoms 
+
+            if lpbc[0]:
+                if sum(self.x[sIDx:eIDx])/nAtoms < xlow:
+                    self.x[sIDx:eIDx] += lx
+                elif sum(self.x[sIDx:eIDx])/nAtoms > xhigh:
+                    self.x[sIDx:eIDx] -= lx
+
+            if lpbc[1]:
+                if sum(self.y[sIDx:eIDx])/nAtoms < ylow:
+                    self.x[sIDx:eIDx] += ly
+                elif sum(self.x[sIDx:eIDx])/nAtoms > xhigh:
+                    self.y[sIDx:eIDx] -= ly
+
+            if lpbc[2]:
+                if sum(self.z[sIDx:eIDx])/nAtoms < zlow:
+                    self.z[sIDx:eIDx] += lz
+                elif sum(self.z[sIDx:eIDx])/nAtoms > zhigh:
+                    self.z[sIDx:eIDx] -= lz
+
 
     def pbc_replicate(self, box, multiple):
         lx, ly, lz = box
