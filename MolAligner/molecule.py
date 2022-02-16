@@ -266,3 +266,6 @@ class Molecule:
             file_handler.write(
                 xyzFMT % (self.symbols[i], self.x[i], self.y[i], self.z[i],)
             )
+
+    def create_residue_tracker(self):
+        pass 
