@@ -19,3 +19,16 @@ def to_numpy(func):
         return func(*args, **kwargs)
 
     return wrapper
+
+
+def check_box_size(func):
+    @wraps(func)
+    def wrapper(self, *args, **kwargs):
+        if np.isclose(sum(self.box), 0.0):
+            raise ValueError(
+                "Undefined box size, use set_box() before invoking PBC operation!"
+            )
+        else:
+            return func(self, *args, **kwargs)
+
+    return wrapper

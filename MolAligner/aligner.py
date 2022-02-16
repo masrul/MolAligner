@@ -2,6 +2,7 @@ from .molecule import Molecule
 import numpy as np
 from copy import deepcopy
 from .rotation_matrix import kabsch_rotate
+from .decorators import check_box_size
 
 
 class Aligner(Molecule):
@@ -30,7 +31,6 @@ class Aligner(Molecule):
 
     def rotate(self, rotation_mat):
         self.coords = np.matmul(rotation_mat, self.coords)
-        self.alias_xyz()
 
     def get_position(self, atom_id):
         return deepcopy(self.coords[:, atom_id - 1])
@@ -83,7 +83,6 @@ class Aligner(Molecule):
 
         # Alias
         self.coords = P
-        self.alias_xyz()
 
     @property
     def com(self):
@@ -118,18 +117,18 @@ class Aligner(Molecule):
 
         return paxis
 
-    def pbc_wrap(self, box, lpbc=(True, True, True), origin="lower_left",wrap_type='atom'):
-        if wrap_type == 'atom':
-            self._pbc_wrap_atom(box,lpbc,origin)
+    @check_box_size
+    def pbc_wrap(self, lpbc=(True, True, True), origin="lower_left", wrap_type="atom"):
+        if wrap_type == "atom":
+            self._pbc_wrap_atom(lpbc=lpbc, origin=origin)
         elif wrap_type == "residue":
-            self._pbc_wrap_residue(box,lpbc,origin)
-        else: 
-            raise ValueError(r'PBC wrap_type = {wrap_type} not supported!')
+            self._pbc_wrap_residue(lpbc=lpbc, origin=origin)
+        else:
+            raise ValueError(r"PBC wrap_type = {wrap_type} not supported!")
 
+    def _pbc_wrap_atom(self, lpbc, origin):
 
-    def _pbc_wrap_atom(self, box, lpbc=(True, True, True), origin="lower_left"):
-
-        lx, ly, lz = box
+        lx, ly, lz = self.box
         if origin == "center":
             xlow, ylow, zlow = (-0.5 * lx, -0.5 * ly, -0.5 * lz)
             xhigh, yhigh, zhigh = (0.5 * lx, 0.5 * ly, 0.5 * lz)
@@ -158,9 +157,9 @@ class Aligner(Molecule):
                 elif self.z[i] > zhigh:
                     self.z[i] -= lz
 
-    def _pbc_wrap_residue(self, box, lpbc=(True, True, True), origin="lower_left"):
+    def _pbc_wrap_residue(self, lpbc, origin):
 
-        lx, ly, lz = box
+        lx, ly, lz = self.box
         if origin == "center":
             xlow, ylow, zlow = (-0.5 * lx, -0.5 * ly, -0.5 * lz)
             xhigh, yhigh, zhigh = (0.5 * lx, 0.5 * ly, 0.5 * lz)
@@ -172,31 +171,31 @@ class Aligner(Molecule):
 
         self.create_residue_tracker()
         for i in range(self.nResidues):
-            nAtoms = self.residue_tracker[i]['nAtoms']
-            sIDx = self.residue_tracker[i]['sIDx']
-            eIDx = sIDx + nAtoms 
+            nAtoms = self.residue_tracker[i]["nAtoms"]
+            sIDx = self.residue_tracker[i]["sIDx"]
+            eIDx = sIDx + nAtoms
 
             if lpbc[0]:
-                if sum(self.x[sIDx:eIDx])/nAtoms < xlow:
+                if sum(self.x[sIDx:eIDx]) / nAtoms < xlow:
                     self.x[sIDx:eIDx] += lx
-                elif sum(self.x[sIDx:eIDx])/nAtoms > xhigh:
+                elif sum(self.x[sIDx:eIDx]) / nAtoms > xhigh:
                     self.x[sIDx:eIDx] -= lx
 
             if lpbc[1]:
-                if sum(self.y[sIDx:eIDx])/nAtoms < ylow:
+                if sum(self.y[sIDx:eIDx]) / nAtoms < ylow:
                     self.x[sIDx:eIDx] += ly
-                elif sum(self.x[sIDx:eIDx])/nAtoms > xhigh:
+                elif sum(self.x[sIDx:eIDx]) / nAtoms > yhigh:
                     self.y[sIDx:eIDx] -= ly
 
             if lpbc[2]:
-                if sum(self.z[sIDx:eIDx])/nAtoms < zlow:
+                if sum(self.z[sIDx:eIDx]) / nAtoms < zlow:
                     self.z[sIDx:eIDx] += lz
-                elif sum(self.z[sIDx:eIDx])/nAtoms > zhigh:
+                elif sum(self.z[sIDx:eIDx]) / nAtoms > zhigh:
                     self.z[sIDx:eIDx] -= lz
 
-
-    def pbc_replicate(self, box, multiple):
-        lx, ly, lz = box
+    @check_box_size
+    def pbc_replicate(self, multiple):
+        lx, ly, lz = self.box
         na, nb, nc = multiple
         sign_a, sign_b, sign_c = np.sign(multiple)
 
@@ -234,4 +233,76 @@ class Aligner(Molecule):
             self.merge(other)
 
         self.box = np.array([abs(na) * lx, abs(nb) * ly, abs(nc) * lz])
-        self.alias_xyz()
+
+    @check_box_size
+    def make_whole(self, lpbc=(True, True, True), whole_type="single"):
+        if whole_type == "single":
+            self._make_whole_single(lpbc=lpbc)
+        elif whole_type == "residue":
+            self._make_whole_residues(lpbc=lpbc)
+
+    def _make_whole_single(self, lpbc):
+        lx, ly, lz = self.box
+        hlx, hly, hlz = 0.5 * lx, 0.5 * ly, 0.5 * lz
+
+        xref = self.x[0]
+        yref = self.y[0]
+        zref = self.z[0]
+        for i in range(1, self.nAtoms):
+            if lpbc[0]:
+                dx = xref - self.x[i]
+                if dx > hlx:
+                    self.x[i] += lx
+                elif dx < -hlx:
+                    self.x[i] -= lx
+
+            if lpbc[1]:
+                dy = yref - self.y[i]
+                if dy > hly:
+                    self.y[i] += ly
+                elif dy < -hly:
+                    self.y[i] -= ly
+
+            if lpbc[2]:
+                dz = zref - self.z[i]
+                if dz > hlz:
+                    self.z[i] += lz
+                elif dz < -hlz:
+                    self.z[i] -= lz
+
+    def _make_whole_residues(self, lpbc):
+        lx, ly, lz = self.box
+        hlx, hly, hlz = 0.5 * lx, 0.5 * ly, 0.5 * lz
+
+        self.create_residue_tracker()
+        for i in range(self.nResidues):
+            nAtoms = self.residue_tracker[i]["nAtoms"]
+            sIDx = self.residue_tracker[i]["sIDx"]
+            eIDx = sIDx + nAtoms
+
+            xref = self.x[sIDx]
+            yref = self.y[sIDx]
+            zref = self.z[sIDx]
+
+            for j in range(sIDx + 1, eIDx):
+
+                if lpbc[0]:
+                    dx = xref - self.x[j]
+                    if dx > hlx:
+                        self.x[j] -= lx
+                    elif dx < -hlx:
+                        self.x[j] += lx
+
+                if lpbc[1]:
+                    dy = yref - self.y[j]
+                    if dy > hly:
+                        self.y[j] -= ly
+                    elif dy < -hly:
+                        self.y[j] += ly
+
+                if lpbc[2]:
+                    dz = zref - self.z[j]
+                    if dz > hlz:
+                        self.z[j] -= lz
+                    elif dz < -hlz:
+                        self.z[j] += lz

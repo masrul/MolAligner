@@ -19,18 +19,7 @@ class Molecule:
         self._read()
 
     def clone(self):
-        new_obj = deepcopy(self)
-        new_obj.x = new_obj.coords[0]
-        new_obj.y = new_obj.coords[1]
-        new_obj.z = new_obj.coords[2]
-
-        return new_obj
-
-    def alias_xyz(self):
-        # aliasing x,y,z (does not allocate new memory)
-        self.x = self.coords[0]
-        self.y = self.coords[1]
-        self.z = self.coords[2]
+        return deepcopy(self)
 
     def __add__(self, other):
         self.merge(other)
@@ -43,11 +32,6 @@ class Molecule:
         self.atomids += [atomid + self.atomids[-1] for atomid in other.atomids]
         self.resnames += other.resnames
         self.coords = np.hstack((self.coords, other.coords))
-
-        # aliasing x,y,z (does not allocate new memory)
-        self.x = self.coords[0]
-        self.y = self.coords[1]
-        self.z = self.coords[2]
 
     def _read(self):
         file_extension = pathlib.Path(self.coord_file).suffix
@@ -72,10 +56,8 @@ class Molecule:
         self.atomids = [i + 1 for i in range(nAtoms)]
         self.box = np.zeros(3)
 
-        # aliasing x,y,z (does not allocate new memory)
-        self.x = self.coords[0]
-        self.y = self.coords[1]
-        self.z = self.coords[2]
+    def set_box(self, box):
+        self.box = np.array(box)
 
     def _read_pdb(self):
 
@@ -126,9 +108,9 @@ class Molecule:
             atom_id += 1
 
         sub_strs = lines[-1].split()[0:3]
-        self.box[0] = float(sub_strs[0])
-        self.box[1] = float(sub_strs[1])
-        self.box[2] = float(sub_strs[2])
+        self.box[0] = float(sub_strs[0]) * nanometer
+        self.box[1] = float(sub_strs[1]) * nanometer
+        self.box[2] = float(sub_strs[2]) * nanometer
 
     def _read_xyz(self):
         with open(self.coord_file, "r") as file_handle:
@@ -184,7 +166,7 @@ class Molecule:
             self.z[atom_id] = float(sub_strs[3]) * angstrom
             atom_id += 1
 
-    def write(self, out_file, write_mode="w", box=None):
+    def write(self, out_file, write_mode="w"):
         file_extension = pathlib.Path(out_file).suffix
 
         if file_extension == ".pdb":
@@ -192,17 +174,18 @@ class Molecule:
         elif file_extension == ".xyz":
             self._write_xyz(out_file, write_mode)
         elif file_extension == ".gro":
-            self._write_gro(out_file, write_mode, box)
+            self._write_gro(out_file, write_mode)
         else:
             raise ValueError(f"Unsupported file format: {file_extension}")
 
     def _write_pdb(self, out_file, write_mode):
         file_handler = open(out_file, write_mode)
         max_resid = 1000
+        max_atomid = 10000
 
         for i in range(self.nAtoms):
             atomid = i + 1
-            atomid = wrap_around(atomid,max_atomid)
+            atomid = wrap_around(atomid, max_atomid)
             resid = wrap_around(self.resids[i], max_resid)
             file_handler.write(
                 "%-6s%5d %-4s %3s  %4d    %8.3f%8.3f%8.3f\n"
@@ -220,15 +203,10 @@ class Molecule:
 
         file_handler.close()
 
-    def _write_gro(self, out_file, write_mode, box):
+    def _write_gro(self, out_file, write_mode):
         file_handler = open(out_file, write_mode)
         max_atomid = 10000
         max_resid = 10000
-
-        if box is not None:
-            lx, ly, lz = box
-        else:
-            lx, ly, lz = self.box
 
         file_handler.write("%s\n" % ("Created by MolAligner"))
         file_handler.write("%-10d\n" % (self.nAtoms))
@@ -236,7 +214,7 @@ class Molecule:
         groFMT = "%5d%-5s%5s%5d%8.3f%8.3f%8.3f\n"
         for i in range(self.nAtoms):
             atomid = i + 1
-            atomid = wrap_around(atomid,max_atomid)
+            atomid = wrap_around(atomid, max_atomid)
             resid = wrap_around(self.resids[i], max_resid)
             file_handler.write(
                 groFMT
@@ -251,7 +229,12 @@ class Molecule:
                 )
             )
         file_handler.write(
-            "%10.5f%10.5f%10.5f\n" % (lx / nanometer, ly / nanometer, lz / nanometer)
+            "%10.5f%10.5f%10.5f\n"
+            % (
+                self.box[0] / nanometer,
+                self.box[1] / nanometer,
+                self.box[2] / nanometer,
+            )
         )
         file_handler.close()
 
@@ -268,19 +251,22 @@ class Molecule:
             )
 
     def create_residue_tracker(self):
-        residue_tracker=[] 
+        residue_tracker = []
 
         for i in range(self.nAtoms):
             resid = self.resids[i]
             resname = self.resnames[i]
 
-            if len(residue_tracker) == 0: 
-                tracker={'id':resid,'name':resname,'nAtoms':1,'sIDx':i}
+            if len(residue_tracker) == 0:
+                tracker = {"id": resid, "name": resname, "nAtoms": 1, "sIDx": i}
                 residue_tracker.append(tracker)
-            elif residue_tracker[-1]['id'] == resid and residue_tracker[-1]['name'] ==resname:
-                residue_tracker[-1]['nAtoms'] +=1
-            else: 
-                tracker={'id':resid,'name':resname,'nAtoms':1,'sIDx':i}
+            elif (
+                residue_tracker[-1]["id"] == resid
+                and residue_tracker[-1]["name"] == resname
+            ):
+                residue_tracker[-1]["nAtoms"] += 1
+            else:
+                tracker = {"id": resid, "name": resname, "nAtoms": 1, "sIDx": i}
                 residue_tracker.append(tracker)
 
         self.residue_tracker = residue_tracker
@@ -288,8 +274,22 @@ class Molecule:
         self.residue_summary = {}
 
         for tracker in residue_tracker:
-            if tracker['name'] not in self.residue_summary:
-                self.residue_summary[tracker['name']] = {'n':1,'nAtoms':tracker['nAtoms']}
-            else: 
-                self.residue_summary[tracker['name']]['n'] +=1
+            if tracker["name"] not in self.residue_summary:
+                self.residue_summary[tracker["name"]] = {
+                    "n": 1,
+                    "nAtoms": tracker["nAtoms"],
+                }
+            else:
+                self.residue_summary[tracker["name"]]["n"] += 1
 
+    @property
+    def x(self):
+        return self.coords[0, :]
+
+    @property
+    def y(self):
+        return self.coords[1, :]
+
+    @property
+    def z(self):
+        return self.coords[2, :]
