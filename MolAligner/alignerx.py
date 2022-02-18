@@ -73,7 +73,7 @@ class AlignerX(Aligner):
         molecule_id = 1
         sIDx = 0
         nMolecules = 0
-        nAtoms = 0 
+        nAtoms = 0
         for i in range(len(molecule_summary)):
             for j in range(molecule_summary[i]["nItems"]):
                 tracker = {}
@@ -86,14 +86,14 @@ class AlignerX(Aligner):
                 molecule_tracker.append(tracker)
 
                 sIDx += tracker["nAtoms_per_molecule"]
-                nAtoms +=tracker["nAtoms_per_molecule"]
+                nAtoms += tracker["nAtoms_per_molecule"]
                 molecule_id += 1
                 nMolecules += 1
 
         self.nMolecules = nMolecules
         self.molecule_tracker = molecule_tracker
 
-        if nAtoms !=self.nAtoms:
+        if nAtoms != self.nAtoms:
             err_msg = "Number of atom mismatched between"
             err_msg += f" molecule_summary({nAtoms}) and"
             err_msg += f" coordinate file({self.nAtoms})!"
@@ -108,7 +108,7 @@ class AlignerX(Aligner):
         elif wrap_type == "molecule":
             self._pbc_wrap_residue(lpbc=lpbc, origin=origin)
         else:
-            raise ValueError(r"PBC wrap_type = {wrap_type} not supported!")
+            raise ValueError(f"PBC wrap_type = {wrap_type} not supported!")
 
     def _pbc_wrap_atom(self, lpbc, origin):
 
@@ -120,7 +120,7 @@ class AlignerX(Aligner):
             xlow, ylow, zlow = (0.0, 0.0, 0.0)
             xhigh, yhigh, zhigh = (lx, ly, lz)
         else:
-            raise ValueError(r"Box origin should be at center/lower_left")
+            raise ValueError("Box origin should be at center/lower_left")
 
         for i in range(self.nAtoms):
             if lpbc[0]:
@@ -151,7 +151,7 @@ class AlignerX(Aligner):
             xlow, ylow, zlow = (0.0, 0.0, 0.0)
             xhigh, yhigh, zhigh = (lx, ly, lz)
         else:
-            raise ValueError(r"Box origin should be at center/lower_left")
+            raise ValueError("Box origin should be at center/lower_left")
 
         self.create_residue_tracker()
         for i in range(self.nResidues):
@@ -190,7 +190,7 @@ class AlignerX(Aligner):
             xlow, ylow, zlow = (0.0, 0.0, 0.0)
             xhigh, yhigh, zhigh = (lx, ly, lz)
         else:
-            raise ValueError(r"Box origin should be at center/lower_left")
+            raise ValueError("Box origin should be at center/lower_left")
 
         for i in range(self.nMolecules):
             nAtoms = self.molecule_tracker[i]["nAtoms_per_molecule"]
