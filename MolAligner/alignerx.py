@@ -159,7 +159,7 @@ class AlignerX(Aligner):
 
             if lpbc[1]:
                 if sum(self.y[sIDx:eIDx]) / nAtoms < ylow:
-                    self.x[sIDx:eIDx] += ly
+                    self.y[sIDx:eIDx] += ly
                 elif sum(self.x[sIDx:eIDx]) / nAtoms > yhigh:
                     self.y[sIDx:eIDx] -= ly
 
@@ -197,7 +197,7 @@ class AlignerX(Aligner):
 
             if lpbc[1]:
                 if sum(self.y[sIDx:eIDx]) / nAtoms < ylow:
-                    self.x[sIDx:eIDx] += ly
+                    self.y[sIDx:eIDx] += ly
                 elif sum(self.x[sIDx:eIDx]) / nAtoms > yhigh:
                     self.y[sIDx:eIDx] -= ly
 
