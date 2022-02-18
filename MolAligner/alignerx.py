@@ -73,6 +73,7 @@ class AlignerX(Aligner):
         molecule_id = 1
         sIDx = 0
         nMolecules = 0
+        nAtoms = 0 
         for i in range(len(molecule_summary)):
             for j in range(molecule_summary[i]["nItems"]):
                 tracker = {}
@@ -85,11 +86,18 @@ class AlignerX(Aligner):
                 molecule_tracker.append(tracker)
 
                 sIDx += tracker["nAtoms_per_molecule"]
+                nAtoms +=tracker["nAtoms_per_molecule"]
                 molecule_id += 1
                 nMolecules += 1
 
         self.nMolecules = nMolecules
         self.molecule_tracker = molecule_tracker
+
+        if nAtoms !=self.nAtoms:
+            err_msg = "Number of atom mismatched between"
+            err_msg += f" molecule_summary({nAtoms}) and"
+            err_msg += f" coordinate file({self.nAtoms})!"
+            raise ValueError(err_msg)
 
     @check_box_size
     def pbc_wrap(self, lpbc=(True, True, True), origin="lower_left", wrap_type="atom"):
