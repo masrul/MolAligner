@@ -83,16 +83,21 @@ class Molecule:
     def _read_gro(self):
 
         with open(self.coord_file, "r") as file_handle:
-            lines = file_handle.readlines()
+            file_handle.readline()  # skip blank/comment line
+
+            # save lines, looping as it might be trajectory
+            nAtoms = int(file_handle.readline())
+            lines = []
+            for _ in range(nAtoms + 1):
+                lines.append(file_handle.readline())
 
         # read num of atoms
-        nAtoms = int(lines[1])
         assert nAtoms > 0
         self._malloc(nAtoms)
 
         # read coordinates
         atom_id = 0
-        for line in lines[2:-1]:
+        for line in lines[:-1]:
             self.resids[atom_id] = int(line[0:5])
             self.resnames[atom_id] = line[5:10].strip()
             self.symbols[atom_id] = line[10:15].strip()
@@ -175,8 +180,8 @@ class Molecule:
 
     def _write_pdb(self, out_file, write_mode):
         file_handler = open(out_file, write_mode)
-        max_resid = 1000
-        max_atomid = 10000
+        max_resid = 9999
+        max_atomid = 99999
 
         for i in range(self.nAtoms):
             atomid = i + 1
@@ -200,8 +205,8 @@ class Molecule:
 
     def _write_gro(self, out_file, write_mode):
         file_handler = open(out_file, write_mode)
-        max_atomid = 10000
-        max_resid = 10000
+        max_atomid = 99999
+        max_resid = 99999
 
         file_handler.write("%s\n" % ("Created by MolAligner"))
         file_handler.write("%-10d\n" % (self.nAtoms))
