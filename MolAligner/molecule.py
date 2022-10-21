@@ -9,9 +9,14 @@ def wrap_around(num, max_num):
 
 
 class Molecule:
-    def __init__(self, coord_file):
-        self.coord_file = coord_file
-        self._read()
+    def __init__(self, coord_file=None, nAtoms=None):
+        if coord_file is not None:
+            self.coord_file = coord_file
+            self._read()
+        elif coord_file is None and nAtoms is not None:
+            self._malloc(nAtoms)
+        else:
+            raise ValueError("Can not Instantiate the object")
 
     def clone(self):
         return deepcopy(self)
@@ -26,7 +31,7 @@ class Molecule:
         self.resids += [resid + self.resids[-1] for resid in other.resids]
         self.atomids += [atomid + self.atomids[-1] for atomid in other.atomids]
         self.resnames += other.resnames
-        self.coords = np.hstack((self.coords, other.coords))
+        self.coords = np.vstack((self.coords, other.coords))  # coord
 
     def _read(self):
         file_extension = pathlib.Path(self.coord_file).suffix
@@ -44,7 +49,7 @@ class Molecule:
 
     def _malloc(self, nAtoms):
         self.nAtoms = nAtoms
-        self.coords = np.zeros((3, nAtoms), order="C")
+        self.coords = np.zeros((nAtoms, 3), order="C")
         self.symbols = ["C"] * nAtoms
         self.resnames = ["MOL"] * nAtoms
         self.resids = [1] * nAtoms
@@ -74,9 +79,9 @@ class Molecule:
                 self.symbols[atom_id] = line[12:16].strip()
                 self.resnames[atom_id] = line[17:20].strip()
                 self.resids[atom_id] = int(line[22:26])
-                self.x[atom_id] = float(line[30:38]) * angstrom
-                self.y[atom_id] = float(line[38:46]) * angstrom
-                self.z[atom_id] = float(line[46:54]) * angstrom
+                self.coords[atom_id, 0] = float(line[30:38]) * angstrom  # coord
+                self.coords[atom_id, 1] = float(line[38:46]) * angstrom
+                self.coords[atom_id, 2] = float(line[46:54]) * angstrom
 
                 atom_id += 1
 
@@ -101,9 +106,9 @@ class Molecule:
             self.resids[atom_id] = int(line[0:5])
             self.resnames[atom_id] = line[5:10].strip()
             self.symbols[atom_id] = line[10:15].strip()
-            self.x[atom_id] = float(line[20:28]) * nanometer
-            self.y[atom_id] = float(line[28:36]) * nanometer
-            self.z[atom_id] = float(line[36:44]) * nanometer
+            self.coords[atom_id, 0] = float(line[20:28]) * nanometer  # coord
+            self.coords[atom_id, 1] = float(line[28:36]) * nanometer
+            self.coords[atom_id, 2] = float(line[36:44]) * nanometer
 
             atom_id += 1
 
@@ -126,9 +131,9 @@ class Molecule:
         for line in lines[2::]:
             sub_strs = line.split()
             self.symbols[atom_id] = sub_strs[0]
-            self.x[atom_id] = float(sub_strs[1]) * angstrom
-            self.y[atom_id] = float(sub_strs[2]) * angstrom
-            self.z[atom_id] = float(sub_strs[3]) * angstrom
+            self.coords[atom_id, 0] = float(sub_strs[1]) * angstrom
+            self.coords[atom_id, 1] = float(sub_strs[2]) * angstrom
+            self.coords[atom_id, 2] = float(sub_strs[3]) * angstrom
 
             atom_id += 1
 
@@ -161,9 +166,9 @@ class Molecule:
         for line in lines[coord_start:coord_end]:
             sub_strs = line.split()
             self.symbols[atom_id] = sub_strs[0]
-            self.x[atom_id] = float(sub_strs[1]) * angstrom
-            self.y[atom_id] = float(sub_strs[2]) * angstrom
-            self.z[atom_id] = float(sub_strs[3]) * angstrom
+            self.coords[atom_id, 0] = float(sub_strs[1]) * angstrom
+            self.coords[atom_id, 1] = float(sub_strs[2]) * angstrom
+            self.coords[atom_id, 2] = float(sub_strs[3]) * angstrom
             atom_id += 1
 
     def write(self, out_file, write_mode="w"):
@@ -195,9 +200,9 @@ class Molecule:
                     self.symbols[i],
                     self.resnames[i],
                     resid,
-                    self.x[i],
-                    self.y[i],
-                    self.z[i],
+                    self.coords[i, 0],
+                    self.coords[i, 1],
+                    self.coords[i, 2],
                 )
             )
 
@@ -223,9 +228,9 @@ class Molecule:
                     self.resnames[i],
                     self.symbols[i],
                     atomid,
-                    self.x[i] / nanometer,
-                    self.y[i] / nanometer,
-                    self.z[i] / nanometer,
+                    self.coords[i, 0] / nanometer,
+                    self.coords[i, 1] / nanometer,
+                    self.coords[i, 2] / nanometer,
                 )
             )
         file_handler.write(
@@ -247,17 +252,60 @@ class Molecule:
         xyzFMT = "%-10s%15.8f%15.8f%15.8f\n"
         for i in range(self.nAtoms):
             file_handler.write(
-                xyzFMT % (self.symbols[i], self.x[i], self.y[i], self.z[i],)
+                xyzFMT
+                % (
+                    self.symbols[i],
+                    self.coords[i, 0],
+                    self.coords[i, 1],
+                    self.coords[i, 2],
+                )
             )
+
+    def keep(self, index, inplace=True):
+
+        other = self._filter(index)
+
+        if inplace:
+            self = other
+        else:
+            return other
+
+    def discard(self, index, inplace=True):
+
+        keep_index = list(set(self.nAtoms) ^ set(index))
+        keep_index.sort()
+
+        other = self._filter(index)
+        if inplace:
+            self = other
+        else:
+            return other
+
+    def _filter(self, index):
+        other = Molecule(len(index))
+
+        for i, idx in enumerate(index):
+            other.symbols[i] = self.symbols[idx]
+            other.resnames[i] = self.resnames[idx]
+            other.resids[i] = self.resids[idx]
+            other.atomids[i] = i + 1
+
+            for j in range(3):
+                other.coords[j][i] = self.coords[j][idx]
+
+        for i in range(3):
+            other.box[i] = self.box[i]
+
+        return other
 
     @property
     def x(self):
-        return self.coords[0, :]
+        return self.coords[:, 0]
 
     @property
     def y(self):
-        return self.coords[1, :]
+        return self.coords[:, 1]
 
     @property
     def z(self):
-        return self.coords[2, :]
+        return self.coords[:, 2]

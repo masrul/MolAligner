@@ -51,7 +51,7 @@ def rotation_around_vector(vec, angle):
     rot_mat[2, 1] = 2 * (q2q3 + q0q1)
     rot_mat[2, 2] = q0q0 - q1q1 - q2q2 + q3q3
 
-    return rot_mat
+    return rot_mat.T
 
 
 @to_numpy
@@ -86,7 +86,7 @@ def align_two_vectors(u, v):
 
     rot_mat = identity_mat + vx + np.matmul(vx, vx) * factor
 
-    return rot_mat
+    return rot_mat.T
 
 
 def kabsch_rotate(P, Q):
@@ -104,6 +104,6 @@ def kabsch_rotate(P, Q):
         S[-1] = -S[-1]
         V[:, -1] = -V[:, -1]
 
-    R = np.matmul(V, W).T
+    R = np.matmul(V, W)
 
     return R

@@ -5,34 +5,26 @@ from .rotation_matrix import kabsch_rotate
 
 
 class Aligner(Molecule):
-    def __init__(self, cood_file):
-        Molecule.__init__(self, cood_file)
+    def __init__(self, cood_file=None, nAtoms=None):
+        Molecule.__init__(self, cood_file, nAtoms)
 
     def move_by(self, trans_vec):
-        self.coords += np.array(trans_vec).reshape((3, 1))
+        self.coords += np.array(trans_vec)
 
     def move_to(self, target_position, target_atom_id=None):
         if target_atom_id:
-            xref = self.x[target_atom_id - 1]
-            yref = self.y[target_atom_id - 1]
-            zref = self.z[target_atom_id - 1]
+            ref_pos = self.coords[target_atom_id]
         else:
-            xref = self.x.mean()
-            yref = self.y.mean()
-            zref = self.z.mean()
+            ref_pos = np.mean(self.coords, axis=0)
 
-        trans_vec = [
-            target_position[0] - xref,
-            target_position[1] - yref,
-            target_position[2] - zref,
-        ]
-        self.coords += np.array(trans_vec).reshape((3, 1))
+        trans_vec = target_position - ref_pos
+        self.coords += trans_vec
 
-    def rotate(self, rotation_mat):
-        self.coords = np.matmul(rotation_mat, self.coords)
+    def rotate(self, rot_mat):
+        self.coords = np.matmul(self.coords, rot_mat.T)
 
     def get_position(self, atom_id):
-        return deepcopy(self.coords[:, atom_id - 1])
+        return deepcopy(self.coords[atom_id])
 
     def get_vector_between(self, atom_ids):
         i, j = atom_ids
@@ -64,24 +56,21 @@ class Aligner(Molecule):
         self.coords = P
 
     def get_principal_axis(self):
+        # alising to be less verbose
+        x = self.coord[:, 0]
+        y = self.coord[:, 1]
+        z = self.coord[:, 2]
+
         center = self.com
         self.move_to([0, 0, 0])
 
-        Ixx = 0.0
-        Iyy = 0.0
-        Izz = 0.0
-        Ixy = 0.0
-        Ixz = 0.0
-        Iyz = 0.0
+        Ixx = np.sum(y * y + z * z)
+        Iyy = np.sum(x * x + z * z)
+        Izz = np.sum(x * x + y * y)
+        Ixy = -np.sum(x * y)
+        Ixz = -np.sum(x * z)
+        Iyz = -np.sum(y * z)
 
-        for i in range(self.nAtoms):
-            Ixx += self.y[i] * self.y[i] + self.z[i] * self.z[i]
-            Iyy += self.x[i] * self.x[i] + self.z[i] * self.z[i]
-            Izz += self.x[i] * self.x[i] + self.y[i] * self.y[i]
-
-            Ixy += -(self.x[i] * self.y[i])
-            Ixz += -(self.x[i] * self.z[i])
-            Iyz += -(self.y[i] * self.z[i])
         self.move_to(center)
 
         inertia = np.array([[Ixx, Ixy, Ixz], [Ixy, Iyy, Iyz], [Ixz, Iyz, Izz]])
@@ -94,9 +83,7 @@ class Aligner(Molecule):
 
     def get_center(self, group_ndx=None):
         if group_ndx is None:
-            xcom = self.x.mean()
-            ycom = self.y.mean()
-            zcom = self.z.mean()
+            xcom, ycom, zcom = np.mean(self.coords, axis=0)
         else:
             xcom = 0.0
             ycom = 0.0

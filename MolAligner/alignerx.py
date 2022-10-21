@@ -4,8 +4,8 @@ from .decorators import check_box_size
 
 
 class AlignerX(Aligner):
-    def __init__(self, cood_file):
-        Aligner.__init__(self, cood_file)
+    def __init__(self, cood_file=None, nAtoms=None):
+        Aligner.__init__(self, cood_file, nAtoms)
         self.residue_tracker = None
         self.molecule_tracker = None
 
@@ -122,24 +122,27 @@ class AlignerX(Aligner):
         else:
             raise ValueError("Box origin should be at center/lower_left")
 
+        # Alias
+        x, y, z = np.hsplit(self.coords, 3)
+
         for i in range(self.nAtoms):
             if lpbc[0]:
-                if self.x[i] < xlow:
-                    self.x[i] += lx
-                elif self.x[i] > xhigh:
-                    self.x[i] -= lx
+                if x[i] < xlow:
+                    x[i] += lx
+                elif x[i] > xhigh:
+                    x[i] -= lx
 
             if lpbc[1]:
-                if self.y[i] < ylow:
-                    self.y[i] += ly
-                elif self.y[i] > yhigh:
-                    self.y[i] -= ly
+                if y[i] < ylow:
+                    y[i] += ly
+                elif y[i] > yhigh:
+                    y[i] -= ly
 
             if lpbc[2]:
-                if self.z[i] < zlow:
-                    self.z[i] += lz
-                elif self.z[i] > zhigh:
-                    self.z[i] -= lz
+                if z[i] < zlow:
+                    z[i] += lz
+                elif z[i] > zhigh:
+                    z[i] -= lz
 
     def _pbc_wrap_residue(self, lpbc, origin):
 
