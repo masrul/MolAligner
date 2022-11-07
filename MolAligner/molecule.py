@@ -291,7 +291,7 @@ class Molecule:
             other.atomids[i] = i + 1
 
             for j in range(3):
-                other.coords[j][i] = self.coords[j][idx]
+                other.coords[i][j] = self.coords[idx][j]
 
         for i in range(3):
             other.box[i] = self.box[i]
