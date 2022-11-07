@@ -282,7 +282,7 @@ class Molecule:
             return other
 
     def _filter(self, index):
-        other = Molecule(len(index))
+        other = Molecule(nAtoms=len(index))
 
         for i, idx in enumerate(index):
             other.symbols[i] = self.symbols[idx]
